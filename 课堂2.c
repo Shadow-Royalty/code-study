@@ -138,6 +138,7 @@ int main()
 //	}
 //	printf("%d", sum);*/
 //
+// 
 //	int num = 0;
 //	int a, b, c, d, e = 0;
 //	scanf("%d", &num);
@@ -381,38 +382,7 @@ for (i = 0; i < n; i++)
 
 
 
-int n = 0;
-scanf("%d", &n);
-a = n / 10000;
-b = n % 10000 / 1000;
-c = n % 1000 / 100;
-d = n % 100 / 10;
-e = n % 10;
 
-char search[5] = { a,b,c,d,e };
-for (i = 0; i < 5; i++)
-{
-	if (search[i] < search[i + 1])
-	{
-		int tmp = search[i];
-			search[i] = search[i + 1];
-			search[i + 1] = tmp;
-		
-	}
-}
-	
-	for (j = 0; j < 5; j++)
-	{
-		if (search[j] > search[j + 1])
-		{
-			int tmp = search[j];
-			search[j] = search[j + 1];
-			search[j + 1] = tmp;
-
-		}
-	}
-	if(j!= 0)
-printf("%c",search[j]);
 
 	void printArray(int a[][3]);
 	int main(void)
@@ -680,6 +650,238 @@ for (i = 0; i < n; i++)
 			不会出错时，一定要调试加认真分析自己写的每一个代码！
 				再不懂就要参考网络上的，但不要急，也要认真看看别人怎么写的，
 				切忌囫囵吞枣，急功近利。*/
+
+
+			int n = 0;
+			printf("Input n:");
+			scanf("%d", &n);
+			printf("Input array:");
+			int i = 0;
+			int j;
+			int a[10][10];//系统没提示就别乱定义大小
+			for (i = 0; i < n; i++)
+			{
+				for (j = 0; j < n; j++)//双循环输入数组
+				{
+					scanf("%d", &a[i][j]);
+				}
+			}
+			//int row = 0; err
+			int col = 0;
+			int flag = 0;//看警告，有警告就改
+
+			for (i = 0; i < n; i++)
+			{
+				flag = 1;//别漏了假设先存在鞍点
+				col = 0;
+				for (j = 0; j < n; j++)
+				{
+					if (a[i][col] < a[i][j])
+						col = j;
+				}//判断该行最大
+
+				//for (i = 0; i < n; i++)
+				//{
+				//	if (a[row][col] > a[i][col])
+				//		row = i;
+				//}//断列最小
+				//看起来好像没什么问题，甚至很完美的实现了查找，实际不然。你这样就会执行到最后。
+				//执行到最后的结果就有很大可能col又附上了新的值，然后即使后面的条件不满足，
+				//那么就不改变row就行了，然后结果就会错
+
+				for (j = 0; j < n; j++)
+					if (a[i][col] > a[j][col])//i在一次循环中是一直不变的，不要用i来循环
+					{
+						flag = 0;
+						break;//跳出当前
+					}
+
+				if (flag == 1)
+				{
+					//printf("a[%d][%d]=%d", row, col, a[row][col]);err
+					printf("a[%d][%d]=%d", i, col, a[i][col]);
+					break;//找到就跳出大循环，防止多余循环重新赋值
+		//这个break不能个放出去，要放进去，不能单独放出来，break只是跳出当前循环，
+			//但是你的大循环还没有结束，所以要break
+
+
+				}//不要轻易漏掉多项的括号，编程习惯一定要养好（防止多余的错误）
+				//思维一定要程序化，不要随自己的思维随意变换！
+				// 
+				//请你在更改数据的时候看看你之前的变量有没有错！改一次总体浏览一次！
+
+
+
+			}
+
+			//很多时候不是思路不对，而是你在程序执行的呈现和顺序上的逻辑出现问题，你必须顺着
+			//程序的思路来编写程序！
+
+			int n, m = 0;
+			scanf("%d%d", &m, &n);
+			int a[20][20];
+			int b[20][20];
+			int i, j = 0;
+			for (i = 0; i < m; i++)
+			{
+				for (j = 0; j < n; j++)
+				{
+					scanf("%d", &a[i][j]);
+
+
+				}
+			}
+			for (i = 0; i < m; i++)
+				for (j = 0; j < n; j++)
+					b[j][i] = a[i][j];//数据上的赋值
+					//另外开循环，防止scanf没完全输入被赋值错误数据
+
+
+
+			for (i = 0; i < n; i++)
+				//输出格式的改变，从两行三列变成三行两列，注意循环的n与m对换了
+				//赋值时循环的顺序不重要，但输入格式就要考虑清楚！
+			{
+				for (j = 0; j < m; j++)
+				{
+					printf("%4d", b[i][j]);
+
+				}
+				printf("\n");//每行结束后再换行，即放后面
+			}
+
+			//数组重排列
+
+
+			int n = 0;
+			int a[10] = { 0 };
+			int i = 0;
+			int j;
+			scanf("%d", &n);
+			while (n != 0)
+			{
+				a[i] = n % 10;
+				n = n / 10;
+				i++;
+			}
+			int m, k, tmp;
+			for (j = 0; j < i - 1; j++)//调试赛高
+			{
+				for (k = 1; k < i; k++)
+				{
+					if (a[j] < a[k] && j <= k)
+						//要加上j<=k，不然到后面j大了又再一次对调就白给了,条件很重要！
+					{
+						tmp = a[j];
+						a[j] = a[k];
+						a[k] = tmp;
+					}
+
+				}
+			}
+
+			for (m = 0; m < i; m++)
+				printf("%d", a[m]);
+
+
+			for (j = 0; j < i - 1; j++)
+			{
+				for (k = 1; k < i; k++)
+				{
+					if (a[j] > a[k] && j <= k)
+					{
+						tmp = a[j];
+						a[j] = a[k];
+						a[k] = tmp;
+					}
+
+				}
+			}
+			printf(" ");
+			for (m = 0; m < i; m++)
+				if (a[m] != 0)
+					printf("%d", a[m]);
+			//直接打印数组名会是数组地址
+
+
+
+
+			int n;
+			printf("Input n:\n");
+			scanf("%d", &n);
+			int a[20][20];
+			printf("Input array:\n");
+			int i, j;
+			for (i = 0; i < n; i++)
+			{
+				for (j = 0; j < n; j++)
+				{
+					scanf("%d", &a[i][j]);
+
+
+				}
+			}
+			int sum = 0;
+			for (i = 0; i < n - 1; i++)//n-1表示去掉最后一行和列
+			{
+				for (j = 0; j < n - 1; j++)
+				{
+					if (i != n - 1 && j != n - 1 && i + j != n - 1)
+						//这个副对角线的规律就记住吧(找这个副对角线的坐标规律）
+						//核心就是，找自己已知的如i,j,n之间的关系，设置一个条件让它恒成立
+						//从而表示出副对角线
+						//不能用一次函数，因为一旦n变了k也变了.
+					{
+						sum += a[i][j];
+					}
+
+				}
+			}
+			printf("sum=%d", sum);
+
+			int i;
+			float pay;
+			float Hours = 0;
+			float Charge = 0;
+			int Car = 0;
+			float a[10];
+			//再一次不赋值，悲剧再度上演，意想不到的错误
+		   //不绝对，看有没有警告
+			for (i = 0; i < 3; i++)
+			{
+				scanf("%f", &a[i]);//牛头不对马嘴。改了类型哪里都要改！
+			}
+			printf("  Car          Hours         Charge\n");
+			//ceil函数，小数直接取整
+			for (i = 0; i < 3; i++)
+			{
+
+				Car++;
+				if (a[i] < 3)
+				{
+					pay = 2.00;
+				}
+				else if (3 <= a[i] && a[i] < 19)
+				{
+					pay = 2.00 + ceil(a[i] - 3) * 0.5;
+				}
+				else
+				{
+					pay = 10.00;
+				}
+				Charge += pay;
+				Hours += a[i];
+				printf("   %d            %.1f           %.2f\n", Car, a[i], pay);
+				//默认float保留6位，所以保留一位小数也要强调！
+				//不能用累加的直接带进去，因为每个人得到的都是独立的
+				//类型很重要！不对的类型会使得程序与预期值大相径庭。
+				//你这里怎么对齐都没用，因为你的循环已经是死得了，
+				//一个一个输出，根本没有参照物对齐
+			}
+
+
+
+			printf("TOTAL           %.1f          %.2f", Hours, Charge);
 
 
 	return 0;
