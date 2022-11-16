@@ -2,6 +2,64 @@
 #include<stdio.h> 
 #include<string.h>
 #include<math.h>
+
+//int isprime(int n)
+//{
+//	int i = 0;
+//	int flag = 1;
+//	for (i = 2; i < n; i++)
+//	{
+//		if (n % i == 0)
+//		{
+//			flag = 0;
+//		}
+//	}
+//	printf("%d", flag);
+//}
+//
+//
+//
+//
+//
+//
+//
+//
+//int main()
+//{
+//	int n = 0;
+//	scanf("%d", &n);
+//	isprime(n);
+//
+//
+//
+//	return 0;
+//}
+
+double fact(int n)
+{
+	int sum = 1;
+	int i = 0;
+	for (i = 1; i <= n; i++)
+	{
+		sum *= i;
+		printf("%d!=%d\n", i, sum);
+	}
+
+
+}
+int main()
+{
+	int n = 0;
+	scanf("%d", &n);
+	printf("Enter n: ");
+	fact(n);
+
+
+
+
+	return 0;
+}
+
 //int reverse(int number)
 //{
 //	int count = 0;
@@ -363,13 +421,14 @@
 //	scanf("%d", &n);
 //	while (n > 0)
 //	{
-//		scanf("%d", &n);
-//		even(n);
+//		//scanf("%d", &n);//顺序出问题了,你前面有个scanf,这里又来一个
+//		/*even(n);*///可以不用写，因为条件判断已经可以进入函数了
 //		if (even(n) == 0)
 //			
 //		{
 //			sum += n;
 //		}
+//		scanf("%d", &n);
 //	} 
 //		//m = n;//用m存放n的值避免n被重新赋值时冲掉了值的大小
 //		////错了,return的量只会返回给函数，不影响实参！
@@ -382,42 +441,136 @@
 //
 //	return 0;
 //}
+//countdigit(number, digit)
+//{int i = 0;
+//	while (number != 0)
+//	{
+//		i = number % 10;
+//		if (i == 2)
+//		{
+//			digit++;
+//		}
+//		number = number / 10;
+//	}
+//	printf("Number of digit 2: %d", digit);
+//}
 //
-
-int even(int n);
-int main(void)
+//int main()
+//{
+//	int number, digit = 0;
+//
+//	printf("Enter an integer: ");
+//	
+//
+//	scanf("%d", &number);
+//countdigit(number, digit);
+//
+//
+//
+//
+//	return 0;
+//}
+//is(int number,int m,int n)
+//
+//{
+//	int i = 0;
+//	int count = 0;
+//	for (number = m; number <= n; number++)//如果都用number,后面的计算会让number改变，循环就乱套了.
+//	{int sum = 0;
+//	count = number;
+//		while (count != 0)
+//		{
+//			i = count % 10;
+//			sum += i * i * i;//又忘重置sum了
+//			count =count / 10;//
+//			
+//		}
+//		if (number == sum)
+//		{
+//			printf("%d\n", sum);
+//			
+//		}
+//
+//	}
+//
+//}
+//int main()
+//{
+//	int m = 0;
+//	int n = 0;
+//
+//int number = 0;
+//	printf("Input m: Input n : ");
+//	scanf("%d%d", &m, &n);
+//	is(number,m,n);
+//
+//		
+//
+//
+//
+//
+//	return 0;
+//}
+fact(int n)
 {
-	int n, sum;
-	scanf("%d", &n);
-	sum = 0;
-	while (n > 0) {
-		if (even(n) == 0) sum = sum + n;
-		scanf("%d", &n);
+	int i = 0;
+	int sum = 1;
+	float e = 1;
+	for (i = 1; i <= n; i++)
+	{
+		sum *= i;
+		e += 1.0000 / sum;
 	}
-	printf("The sum of the odd numbers is %d.\n", sum);
+	printf("e=%.4f", e);
+}
+int main()
+{
+	int n = 0;
+	printf("Input n: ");
+	scanf("%d", &n);
+	fact(n);
+
+
+
+
 	return 0;
 }
-int even(int n)
-{
-	int y;
-	if (n % 2 == 0)  y = 1;
-	else
-		y = 0;
-	return y;
-}
 
 
 
-		
-
-			
-
-
-		
-		
 
 
 
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
