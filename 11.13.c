@@ -2,8 +2,8 @@
 #include<stdio.h> 
 #include<string.h>
 #include<math.h>
-int main()
-{
+//int main()
+//{
 	//double a = 5 / 2.0;
 	//printf("%lf\n", a);
 	
@@ -138,10 +138,81 @@ int main()
 //}
 ////因为a=0为假，所以执行上面那条语句.	
 
-int a = 11;
-a = a | (1 << 2);
-printf("%d\n", a);
-a = a & (~(1 << 2));
-printf("%d\n", a);
+//int a = 11;
+//a = a | (1 << 2);
+//printf("%d\n", a);
+//a = a & (~(1 << 2));
+//printf("%d\n", a);
+//int a =0;
+//printf("%d\n", a++);//先使用后++
+//printf("%d\n", ++a);//先++后使用
+
+//int a = (int)3.14;//强制转换,注意是类型加括号！
+//printf("%d", a);
+
+//int a = 0;
+////int i = a++ && 13&&14;//先执行&&,如果一开始a=0,条件为假，那就不会再执行下去了，a++是后来的事,a++会执行.
+//int i = 1 || 0 || 0;//||从左到右只要检测到一个数字为真就也不会判断下去
+//
+
+//int a = 0;
+//int b;
+////if (a > 5)
+////b = 3;
+////else
+////b = -3;
+//
+//b =(a > 5 ?  3 : -3);//前面已经写了b=了不用再强调了
+//printf("%d", b);
+
+//int a = 10;
+//int b = 20;
+//int max = 0;
+//max = (a > b ? a : b);
+//printf("%d", max);
+
+//int a = 1;
+//int b = 2;
+//int c = (a > b, a = b + 10, a, b = a + 1);//逗号表达式，从左到右执行，取最后一个作为最终结果
+////可以和while一起使用，使得代码简洁
+
+
+//	return 0;
+//}
+struct stu //图纸
+{
+	char name[20];
+	int age;
+	char id[20];
+};
+int main()
+{
+int a = 10;
+
+struct stu s1 = { "张三",20,"202210204" };//房子
+//使用struct stu这个类型创建对象s1,并初始化.
+//printf("%s\n", s1.name);
+//printf("%d\n", s1.age);
+//printf("%s\n", s1.id);
+//结构体变量.函数名
+
+struct stu* ps = &s1;
+printf("%s\n", (*ps).name);//指针
+//也可以写成
+printf("%s\n", ps->name);
+
+//整型提升
+//如char a只能存8个bit位
+//char a = 3;
+//char b = 127;
+//char c = a + b;
+//像这样两数相加时，只有八个字符就要用到整型提升再相加(按照截取的首位补充)
+//注意:如果是负数，那就先整型提升(此时为补码)，然后倒推反码，原码，得出该数字
+//(注意符号位不要变！)
+
+
+
+
 	return 0;
 }
+
