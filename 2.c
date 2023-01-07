@@ -10,6 +10,6 @@ int pivotIndex(int* nums, int numsSize) {
         }
         sum += nums[i];
     }
-    return -1
+    return -1;
 }
 
