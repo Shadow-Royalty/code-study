@@ -2022,3 +2022,1743 @@ int main(){
 //a/b是取到整数的范围
 //而a%b是取到了小数的范围，
 //但本身是余数，需要再次/b才能转化成小数部分
+
+
+//人物相关性分析
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int a[1000010]={0};
+int b[1000010]={0};
+  char str[1000010]={0};
+  //不要自认为不可能，上限多高就要设多大，不然超过数组大小就会溢出运行就会错误
+  //你把ab设成10^5，就有两个数据通不过！！
+  //记住，运行错误不是超时，最可能就是溢出，如类型和数组大小，这些不确定的你就
+  // 根据上限设大，或者long long，宁可设大也不设小.设到上限还要多几个也是防溢出.
+
+  int check(char x)
+  {
+    return (x>='a'&&x<='z'||x>='A'&&x<='Z');
+    // 自动判断，满足条件返回真值，否则假值
+    // if语句&&必须所有都是真，一个假自动不进入if中
+  }
+  //判断是否为独立单词，左右两边没有多余的字母
+  //只要你是这其中的字母，我就不要
+  //但是其他字符就可以
+  
+
+int main(int argc, char *argv[])
+{
+
+int k,flag=0;
+  long long ans=0;
+  scanf("%d",&k);
+   getchar();//吸收scanf的缓冲
+  gets(str);
+  //输入一行字符串
+  long long len=strlen(str);
+  //统计字符串长度
+
+  for(long long i=0;i+5<=len;i++)
+  {
+    if(str[i]=='A'&&str[i+1]=='l'&&str[i+2]=='i'&&str[i+3]=='c'&&str[i+4]=='e')
+    if(!i&&!check(str[i+5])||!check(str[i-1])&&!check(str[i+5])||!check(str[i-1])&&i+5==len)
+       a[flag++]=i;
+       //记录首字母出现的位置
+
+        //i==0时无需判断左边是否有字符
+                //i+5没毛病，一开始从0下标开始,加5就到了e的右边
+                //i为第一个字符下标，i-1前一个
+                //三个条件分别为左中右
+  }
+  // long long la=sizeof(a)/sizeof(a[0]);
+  //这个算的总数是数组的整体大小，即使你没有赋值，
+  //你总共开创的数组有多大总体就有多大，所以不能这么写
+ long la =flag;
+ //记录数组长度,为了记录出现了多少个Alice
+  
+
+  flag=0;//重置flag 
+
+    for(long long i=0;i+3<=len;i++)
+  {
+    if(str[i]=='B'&&str[i+1]=='o'&&str[i+2]=='b')
+    if(!i&&!check(str[i+3])||!check(str[i-1])&&!check(str[i+3])||!check(str[i-1])&&i+3==len)
+       b[flag++]=i;
+  }
+long lb =flag;//记录
+  
+
+  for(long long i=0,l=0,r=0;i<la;i++)
+  //先固定Alice,然后判断与Bob位置
+
+  {//注意是查找到哪个字母算不超过，据题意只要碰到了一个单词都算不超过
+  //你的想法是对的，旁边连续的BOb如Alice and Bob.Bob也是两次
+    while(l<lb&&b[l]+2<a[i]-k)//A左边的Bob
+    //因为记录的是他们的首字母，我们需要根据首尾单词的位置判断
+    
+    l++;
+    while(r<lb&&a[i]+4+k>=b[r])//右边的
+    r++;
+    ans+=r-l;
+
+    // 整个维护过程就是l减r增,如果l不增，说明Bob都在范围内,因此每一次的Alice都能加上这个Bob
+    // 所以r不用重置和初始化，每一次循环都加上一次，一旦l增说明超出范围，此时A不能再加，
+    // 因此减去.而每次循环的Alice都是越来越后的，所以l也不用重置,每一次都要减去这一次的l
+    //同时也要保留加上这个r(因为存在循环时l和r都不变的情况)
+    // 同时l和r一直记录着减去和增加的数量，每一次的Alice都是直接加在ans上的，因此这个操作只是针对
+    // 每一次，对于每一次而言，我们只需要把满足条件的Bob新加进来，不满足的减去
+    // 也就是r-l了。前面累积的结果就是通过l与r的记录表示.
+
+    // 如果总是从头遍历，每次从第一个Bob开始就会超时，这么写的好处在于检索的Bob和Alice一直都是
+    // 向前推进的，没有回头，避免重复的检索.
+
+   //简言之就是每一个Alice，满足的就加进来，不满足就舍去，左边舍去，右边加
+   //同时l与r还充当遍历下标，只要l与r增加我就可以再向后遍历一个Bob看看满不满足
+   //因为旁边连续的BOb如Alice and Bob.Bob也是两次
+
+
+  }
+  printf("%lld",ans);
+  
+  return 0;
+}
+
+// 总结:l与r分开记录就是为了单独识别左边和右边的判断推进，如果r增，说明有A能够在范围内，他们就算同时出现一次
+// 所以r可以推进到下一个Bob，也就是以后我都不需要再遍历这个Bob了，这就避免了重复遍历
+// 同理l推进也是，当出现Bob脱离当前A的范围，
+//也可以推进了，因为当前的A都已经脱离，那么后面的也一定脱离，就避免了对前面Bob的重复遍历
+
+
+//赢球票
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char* argv[])
+{
+    int a[101];
+    int flag[101];
+    int ans, n;
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
+    {
+        scanf("%d", &a[i]);//最好还是对应下标来写，用if代替取模
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        int pos = i, num = 0, count = 0, sum = 0;
+        //现在移动到的位置，还是现在数的数字，这两个要分开写才清晰！
+        for (int k = 1; k <= n; k++)
+        {
+            flag[k] = 0;
+        }//重置标记过的卡片
+        while (1)
+        {//数的数字超过了和数完了所有卡牌就退出.
+            if (num > n || count == n)
+                break;
+
+            if (flag[pos] == 1)
+        //重复卡片(位置)直接移动到下一个位置，但是数的数是没有变化的，代表这个卡片被拿走了
+            {
+                if (pos == n)
+                    pos = 1;
+                else
+                    pos++;
+                continue;
+            }
+
+            if (num == a[pos])
+            {
+                sum += num;
+                num = 1;//重置数的数
+                count++;
+                flag[pos] = 1;//标记该位置表示拿走了
+                if (pos == n)
+                    pos = 1;
+                else
+                    pos++;
+
+            }
+            
+            else
+            {
+                num++;
+                if (pos == n)
+                    pos = 1;
+                else
+                    pos++;
+            }
+            //最重要的一步你都没写！
+            //数的数字和当前位置数字不相等你也要考虑
+            // 如果考虑不周，你就带入数据自己模拟环境
+            // 想想有什么可能性，下一步应该做什么，你就很清楚了
+
+
+        }
+        if (ans < sum)//最大值
+            ans = sum;
+    }
+
+    printf("%d", ans);
+    return 0;
+}
+
+//既约分数
+
+#include <stdio.h>
+#include <stdlib.h>
+int s(int a,int b)
+{
+  // if(a%b==1)//记错了，整除到0为截至，b的一方为最大公因数！
+  // {
+  //   return 1;
+  // }
+  // else
+  // return s(b,a%b);
+  // return 0;
+
+   if(a%b==0)//记错了，整除到0为截至，b的一方为最大公因数！
+  {
+    return b;
+  }
+  else
+  return s(b,a%b);
+
+  return 0;
+}
+int main(int argc, char *argv[])
+{
+  long long count=0;
+  for(int i=1;i<=2020;i++)
+  for(int j=1;j<=2020;j++)
+  {
+    if(s(i,j)==1)
+    {
+      count++;
+    }
+
+  }
+  printf("%lld",count);
+  return 0;
+}
+
+//蛇形统计
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+{
+  int ans=1;
+ for(int i=2;i<=20;i++)
+ {
+   ans=ans+(i-1)*4;
+ }
+ printf("%d",ans);
+  return 0;
+}//上一个数+其下标*4
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//没看到日期，以为是单纯的数字叠加！
+int main(int argc, char *argv[])
+{
+  long long n,i,huiwen1=0,huiwen2=0;
+  scanf("%lld",&n);
+ for(i=n+1;i<=99999999;i++)
+  {
+    if(i/10000000==i%10)
+    {
+      if(i/1000000==(i%100/10))
+      {
+        if(i/100000==(i%1000/100))
+        {
+          if(i/10000==(i%10000/1000))
+          {
+            printf("%lld\n",i);
+          }
+        }
+      }
+    }
+  }
+
+ for(i=n+1;i<=99999999;i++)
+  {
+    if(i/10000000==i%10)
+    {
+      if(i/1000000==(i%100/10))
+      {
+        if(i/100000==(i%1000/100))
+        {
+          if(i/10000==(i%10000/1000))
+          { 
+            if((i%10)!=(i%100/10)&&(i%10)==(i%1000/100))
+            printf("%lld\n",i);
+          }
+        }
+      }
+    }
+  }
+
+
+  return 0;
+}
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char* argv[])
+{
+    int n, i, year, j, k;//类型大了不影响结果
+    int huiwen1 = 0, huiwen2 = 0;
+    scanf("%d\n", &n);
+    year = n / 10000;
+
+    //先进月份，才能判断日期，相等即可，日期就循环判断
+    //谁先找到谁先break，然后再开个循环继承那一年
+    //为了保证下一个回文先输出我先设条件
+    //不行，只有开两个循环单独找才行，你不确定他们两个到底谁先出现
+    for (i = year; i <= 8999; i++)
+    {
+        for (j = 1; j <= 12; j++)
+        {
+            if ((i % 100 / 10) == (j % 10) && (i % 10) == (j / 10))//截取月份的数字相同
+            {
+                if (j == 2)
+                {
+                    if ((i % 4 == 0) && (i % 100 != 0) || i % 400 == 0)//闰年
+                    {
+                        for (k = 1; k <= 29; k++)
+                        {
+                            if (i / 1000 == k % 10 && i / 100 % 10 == k / 10)
+                            {
+                                if (huiwen1 != 1)
+                                {
+                                    printf("%d%d%d%d%d\n", i, j / 10, j % 10, k / 10, k % 10);
+                                    huiwen1 = 1;
+                                }
+
+                                if ((k % 10) == (j % 10) && (k / 10) == (j / 10) && (k % 10) != (k / 10) && huiwen2 != 1)
+                                    //因为对称性，我们只需要判断一半就可以了,ABABBABA
+                                {
+                                    printf("%d%d%d%d%d\n", i, j / 10, j % 10, k / 10, k % 10);
+                                    huiwen2 = 1;
+                                }
+
+                            }
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        for (k = 1; k <= 28; k++)
+                        {
+                            if (i / 1000 == k % 10 && i / 100 % 10 == k / 10)
+                            {
+                                if (huiwen1 != 1)
+                                {
+                                    printf("%d%d%d%d%d\n", i, j / 10, j % 10, k / 10, k % 10);
+                                    huiwen1 = 1;
+                                }
+
+                                if ((k % 10) == (j % 10) && (k / 10) == (j / 10) && (k % 10) != (k / 10) && huiwen2 != 1)
+                                    //因为对称性，我们只需要判断一半就可以了,ABABBABA
+                                {
+                                    printf("%d%d%d%d%d\n", i, j / 10, j % 10, k / 10, k % 10);
+                                    huiwen2 = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                else if (j == 4 || j == 6 || j == 9 || j == 11)
+                {
+                    for (k = 1; k <= 30; k++)
+                    {
+                        if (i / 1000 == k % 10 && i / 100 % 10 == k / 10)
+                        {
+                            if (huiwen1 != 1)
+                            {
+                                printf("%d%d%d%d%d\n", i, j / 10, j % 10, k / 10, k % 10);
+                                huiwen1 = 1;
+                            }
+
+                            if ((k % 10) == (j % 10) && (k / 10) == (j / 10) && (k % 10) != (k / 10) && huiwen2 != 1)
+                                //因为对称性，我们只需要判断一半就可以了,ABABBABA
+                            {
+                                printf("%d%d%d%d%d\n", i, j / 10, j % 10, k / 10, k % 10);
+                                huiwen2 = 1;
+                            }
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    for (k = 1; k <= 31; k++)
+                    {
+                        if (i / 1000 == k % 10 && i / 100 % 10 == k / 10)
+                        {
+                            if (huiwen1 != 1)
+                            {
+                                printf("%d%d%d%d%d\n", i, j / 10, j % 10, k / 10, k % 10);
+                                huiwen1 = 1;
+                            }
+
+                            if ((k % 10) == (j % 10) && (k / 10) == (j / 10) && (k % 10) != (k / 10) && huiwen2 != 1)
+                                //因为对称性，我们只需要判断一半就可以了,ABABBABA
+                            {
+                                printf("%d%d%d%d%d\n", i, j / 10, j % 10, k / 10, k % 10);
+                                huiwen2 = 1;
+                            }
+                        }
+                    }
+                }
+
+
+
+
+
+
+
+            }
+
+
+
+        }
+        if (huiwen1 == 1 && huiwen2 == 1)
+        {
+            return 0;
+
+
+        }
+
+
+    }
+
+    return 0;
+
+}
+
+
+#include <iostream>
+using namespace std;
+
+bool isLeap(int y)//判断闰年
+// 长的代码或者重复使用的最好写在一个函数里防止出错
+{
+    return (y%4==0&&y%100!=0)||(y%400==0);
+}
+
+//让测试数据自己判断是否正确
+bool check(int year,int month,int day){//判断是否为合法日期
+    if(month>12||month==0) return false;
+    if(day>31||day==0) return false;
+    if(month==2){
+        if(isLeap(year)&&day>29)
+            return false;
+        if(!isLeap(year)&&day>28)
+            return false;
+    }
+    if(month==4||month==6||month==9||month==11){
+        if(day>30) return false;
+    }
+    return true;
+}
+int main()
+{
+    int n,i;
+    cin>>n;
+    int a,b,c,d,e,f,g,h;//8位数字
+    int year,month,day;
+    bool flag=false;
+    //在遍历全部数字时用代码屏蔽掉错误的年月日，也就直接屏蔽掉了不合法的数字
+    //就不需要自己一个个拆分了
+    for(i=n+1;i<=99999999;i++){
+        year=i/10000;
+        month=(i%10000)/100;
+        day=i%100;
+        a=i%10;
+        b=(i/10)%10;
+        c=(i/100)%10;
+        d=(i/1000)%10;
+        e=(i/10000)%10;
+        f=(i/100000)%10;
+        g=(i/1000000)%10;
+        h=(i/10000000)%10;
+        if(a==h&&b==g&&c==f&&d==e&&flag==false)
+        //先输出下一个回文，如果第一个就是abab
+        //那么两行一致，反正这个是一定先打印的！
+        {
+            if(check(year,month,day)){
+                cout<<i<<endl;
+                flag=true;//只输出一个回文
+            }
+        }
+        if(a==h&&b==g&&c==f&&d==e&&a==c&&b==d){
+            if(check(year,month,day)){
+                cout<<i<<endl;
+                break;
+            }
+        }
+        //是哦，如果是下一个回文就是abab，那么两行就是一样的，并不是逻辑不严密
+        //而是我的思维漏洞。反正无论怎么样，都是优先打印下一个回文，abab是回文的子集
+        //放后面打印。如果第一个就是abab，那么两行一致，如果不是，那么abab也肯定要往下
+        //查找！
+        //并没有想到abab是回文的子集！
+
+    }
+    return 0;
+}
+
+//取模不会用很多时间
+//优先暴力，超时再改
+//即使超时我们也可以加多条件减少时间
+//优化算法会增加代码量，我们不知道究竟超不超时可以根据题目难度来决定暴不暴力
+//优先暴力，如果超时再优化算法，不要先优化，不然代码量多很容易出错，修bug麻烦而且步骤多
+//容易出问题！先暴力试探一下底线，能过就不优化
+//虽然繁琐但我也总算学会了如何优化算法
+//记住，考试的时候是会不会做，不是叫你优化算法，能解决问题拿到分数就够了，不是让你最高效率
+//因此你写多行代码是吃力不讨好的行为，尽量避免写过多行的代码（虽然有些重复的可以复制粘贴）
+//优化代码对于题目理解就要更深刻，其次代码行数多写代码也费时间，而且没有必要的优化给自己的思维负担
+//也大，耗费时间更长，更容易出错，因此，永远都是最短时间解题优先，能不优化就不优化，这是考量解题能力
+//不是考你优化的能力！
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+{
+  char a[100000];
+  long long sum=0;
+  int set[30];
+  scanf("%s",&a);
+  long n=strlen(a);
+  for(long i=0;i<n;i++)
+  {
+    sum+=(i+1-set[a[i]-'a'])*(n-i);
+    set[a[i]-'a']=i+1;
+
+  }
+  printf("%lld",sum);
+
+  return 0;
+}
+
+//年号字串
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+{
+  // 请在此输入您的代码//
+  //此题本质上是26进制考题，就是将十进制数字转换为对应的26进制字母，将每一位上的数字转换为对应的26进制字母即可
+ int i,j,k,t;
+ char a[26]={'Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S',
+ 'T','U','V','W','X','Y'};
+ //把Z放在前面，因为取模时会直接回到0，而且也解决了下标不对应的问题
+    t=2019;
+    //这里我们可以用26^n与t比对，看看n多大，然后确定有几位数
+    i=t/676;
+    j=t/26%26;//26进制字母，取整断尾，取模断头，锁定第二位数
+    k=t%26;
+    printf("%c%c%c",a[i],a[j],a[k]); 
+  return 0;
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+ {long long i,tmp=0;
+ long long a[3]={1,1,1};
+  for(i=4;i<=20190324;i++)
+  {
+    tmp=a[0]+a[1]+a[2];
+    a[0]=a[1];
+    a[1]=a[2];
+    a[2]=tmp;
+    
+  }
+  printf("%lld",tmp%10000);
+  //数据过大溢出了
+// printf("0115");
+  return 0;
+}
+
+//正解
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[])
+ {long long i,tmp=0;
+ long long a[3]={1,1,1};
+  for(i=4;i<=20190324;i++)
+  {
+    tmp=(a[0]+a[1]+a[2])%10000;
+    a[0]=a[1];
+    a[1]=a[2];
+    a[2]=tmp;
+    
+  }
+  printf("%lld",tmp);
+  //数据过大溢出了
+// printf("0115");
+  return 0;
+}
+//数据计算是符合叠加关系的
+//对最后的结果保留最后四位数字==每一次的结果都保留4位数字
+//所以直接取模就好了.
+
+//迷宫
+
+
+#include<bits/stdc++.h>
+using namespace std;
+char wz[50][55];
+char d[4] = { 'D','L','R','U' };
+// char dir[4][2]={{-1,0},{0,-1},{0,1},{1,0}};err
+// char dir[4][2] = { {1,0},{0,-1},{0,1},{-1,0} };err
+int dir[4][2] = { {1,0},{0,-1},{0,1},{-1,0} };
+//这是数字不是字符，真的醉了
+//你写的时候要知道你在干什么才行,不要乱贴标签
+//往上走是相当于减一行，往下走是加一行！
+struct node
+{
+    int x;
+    int y;
+    string s;
+};
+
+void bfs()
+{
+    //哪个node 哪个信息一定要指清楚！
+    node next, now;
+    queue<node>que;
+    // wz[1][1]="1";err
+    wz[1][1] = '1';
+    //字符串用"",字符用''
+
+    now.s = "";// s="";err麻烦你清楚是那个位置的s
+    now.x = now.y = 1;
+    que.push(now);
+    //用条件与初始化条件分隔
+    while (!que.empty())
+    {
+        now = que.front();
+        que.pop();
+        if (now.x == 30 && now.y == 50)
+        {
+            //  cout<<now<<endl;err
+            cout << now.s << endl;
+            //请指定你要输出什么！
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            next.x = now.x + dir[i][0];
+            next.y = now.y + dir[i][1];
+              //下标的移动
+
+            //  if(next.x>0&&next.x<=30&&next.y>0&&next.y<=50&&wz[next.x][next.y]=0)err
+            if (next.x > 0 && next.x <= 30 && next.y > 0 && next.y <= 50 && wz[next.x][next.y] == '0')
+                //是字符不是数字,还有是等价不是赋值
+            {
+                // wz[next.x][next.y]=1;err
+                wz[next.x][next.y] = '1';
+                //是字符不是数字
+
+                next.s = now.s + d[i];
+                que.push(next);
+
+            }
+        }
+
+
+    }
+
+
+
+
+
+}
+int main()
+{
+    for (int i = 1; i <=30; i++)
+        for (int j = 1; j <=50; j++)
+        {
+          // scanf("%s",&wz[i][j]);err
+          //c语言的坏毛病，写scanf是错误输出,也不知道为啥可以通过编译器
+            cin>>wz[i][j];
+        }
+    bfs();
+    return 0;
+}
+
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <string.h>
+#include <queue>
+///BFS+字符串
+using namespace std;
+#define maxn 50
+int maze[maxn][maxn];
+char d[4] = { 'D','L','R','U' };//注意，这里要按照字典序顺序排
+int dir[4][2] = { {1,0},{0,-1},{0,1},{-1,0} };//这里的顺序要和上面d数组一一对应
+int n=4, m=6;
+struct node
+{
+    int x;
+    int y;
+    string s;
+    /* data */
+};
+//每一次的循环都是只有一步，而且每轮都是要判断是否到达终点，
+//因此也一定是最少步数，只要有点到了就会立马返回，典序一直都在判断，
+//所以根本就不需要考虑步数最少，队列输出一定是最优解
+//而且每一次都是从队尾，插入也有顺序，因此一定是最小的在最前面
+void bfs()
+{
+    node now, next;
+    queue<node> que;
+    //默认队尾添加，队头删除
+    //队列
+    maze[0][0] = 1;
+    now.s = "";
+    now.x = now.y = 0;
+    que.push(now);
+    while (!que.empty())
+    {
+        now = que.front();
+        //这里的now读取了数据,起到继承上一次的作用
+        //给结点赋值
+        que.pop();
+        if (now.x == n - 1 && now.y == m - 1)
+            //走到终点
+            //从一开始的00一直到出口
+            //n-1是因为从0开始插入
+        {
+            cout << now.s << endl;
+
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            next.x = now.x + dir[i][0];
+            next.y = now.y + dir[i][1];
+            //行移动上下，列移动左右,相当于移动位置
+            //确实只有这样才能移动
+            // 行才能改变上下，列改变左右
+            //改变行数和列数，等于移动坐标
+            //每一轮都分别有上下左右的移动方式
+            if (next.x >= 0 && next.x < n && next.y >= 0 && next.y < m && maze[next.x][next.y] == 0)
+                //如果进不来这个条件，就自动读取不了next的记录，就直接完全删除了,就相当于无路可走，就退出了
+            {
+                maze[next.x][next.y] = 1;//记录走过
+                next.s = now.s + d[i];
+                //记录每种可能的字符串
+                que.push(next);//队尾插入等待now继续向前探索
+            }
+        }
+    }
+}
+//总的来说就是搜索，每一步讨论所有可能移动的方向，一个字符串保留数据。
+//与循环不同就在于，每一轮都会删除上一次的结果，而合法数据得到继承，不合法就永久删除
+
+
+
+int main()
+{
+   
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cin >> maze[i][j];
+        }
+    }
+    //这么写没问题的，你直接输入，即使存在数据，系统会帮你自动填写的
+    //所以这是通用的
+    bfs();
+    return 0;
+}
+
+///BFS+字符串
+#include<bits/stdc++.h>
+using namespace std;
+#define maxn 50
+char maze[maxn][maxn];
+char d[4] = { 'D','L','R','U' };//注意，这里要按照字典序顺序排
+int dir[4][2] = { {1,0},{0,-1},{0,1},{-1,0} };//这里的顺序要和上面d数组一一对应
+int n = 30, m = 50;
+struct node
+{
+    int x;
+    int y;
+    string s;
+    /* data */
+};
+//每一次的循环都是只有一步，而且每轮都是要判断是否到达终点，
+//因此也一定是最少步数，只要有点到了就会立马返回，典序一直都在判断，
+//所以根本就不需要考虑步数最少，队列输出一定是最优解
+//而且每一次都是从队尾，插入也有顺序，因此一定是最小的在最前面
+void bfs()
+{
+    node now, next;
+    queue<node> que;
+    //默认队尾添加，队头删除
+    //队列
+    maze[0][0] = '1';
+    now.s = "";
+    now.x = now.y = 0;
+    que.push(now);
+    while (!que.empty())
+    {
+        now = que.front();
+        //这里的now读取了数据,起到继承上一次的作用
+        //给结点赋值
+        que.pop();
+        if (now.x == n - 1 && now.y == m - 1)
+            //走到终点
+            //从一开始的00一直到出口
+            //n-1是因为从0开始插入
+        {
+            cout << now.s << endl;
+
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            next.x = now.x + dir[i][0];
+            next.y = now.y + dir[i][1];
+            //行移动上下，列移动左右,相当于移动位置
+            //确实只有这样才能移动
+            // 行才能改变上下，列改变左右
+            //改变行数和列数，等于移动坐标
+            //每一轮都分别有上下左右的移动方式
+            if (next.x >= 0 && next.x < n && next.y >= 0 && next.y < m && maze[next.x][next.y] == '0')
+                //如果进不来这个条件，就自动读取不了next的记录，就直接完全删除了,就相当于无路可走，就退出了
+            {
+                maze[next.x][next.y] = '1';//记录走过
+                next.s = now.s + d[i];
+                //记录每种可能的字符串
+                que.push(next);//队尾插入等待now继续向前探索
+            }
+        }
+    }
+}
+//总的来说就是搜索，每一步讨论所有可能移动的方向，一个字符串保留数据。
+//与循环不同就在于，每一轮都会删除上一次的结果，而合法数据得到继承，不合法就永久删除
+
+
+
+int main()
+{
+    //cin >> n >> m;根据需要来写
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cin >> maze[i][j];
+        }
+    }
+    //这么写没问题的，你直接输入，即使存在数据，系统会帮你自动填写的
+    //所以这是通用的
+    bfs();
+    return 0;
+}
+
+//等差数列
+
+
+#include <stdio.h>
+#include <stdlib.h>
+int n;
+
+int tmp(const void*a,const void*b)
+{
+  return *(int*)a-*(int*)b;
+}
+
+int min(int a,int b)
+{
+  return a<b?a:b;
+}
+int main(int argc, char *argv[])
+{
+  scanf("%d",&n);
+ int a[n];
+ //10^9，int是够用的
+
+  
+  for(int i=0;i<n;i++)
+  {
+    scanf("%d",&a[i]);
+  
+  }
+  qsort(a,n,sizeof(int),tmp);
+  //排序类型！！别搞错了
+
+
+   int d=a[1]-a[0];
+  //用熟悉的字母更好
+ for(int i=0;i<n-1;i++)//注意这里是n-1,因为最大只能是n-1
+ {
+   d=min(a[i+1]-a[i],d);
+ }
+
+ if(d==0)
+ {
+   printf("%d",n);
+ }
+ else
+ {
+   int sum=((a[n-1]-a[0])/d)+1;
+ 
+  printf("%d",sum);
+ }
+  
+  
+
+  return 0;
+}
+//问题:1.没有考虑到d=0的情况
+//2.以为一定是最小的数的前面两个d最小，实际上是
+//每两个数之间都有可能存在最小的d,所以要比对两个数之间的d
+//并选出最小的
+//3.类型，不要混搭和错误，不然输出结果会错.
+//包括使用的库函数，函数自己开的函数，还是计算，输入，全部都会牵连
+//因此，一定先确定自己用什么类型，用了就尽量统一，不要变换，
+//统一用一个不容易错。
+
+//约数个数
+#include <iostream>
+using namespace std;
+int main()
+{
+  int count=0;
+  for(int i=1;i<=1200000;i++)
+  {
+    if(1200000%i==0)
+    {
+      count++;
+    }
+  }
+  //1和自己本身也属于约数，0不属于约数
+  cout<<count;
+  return 0;
+}
+
+//激光样式
+
+#include <iostream>
+using namespace std;
+ int get(int i, int j)
+{
+    return (i >> j) & 1;
+}
+ //每次移动j位，j-1位，&1，来判断是否两数都为1，如果条件为真.
+ //flag就赋值假值，注意，当数字没有这么大的时候移动多的位数也是没问题的
+ //都是0相当于关闭，也是合法的，因此&1不&0,&1只要是假值，自然return 0
+ //条件为假flag就不变.
+int main()
+{
+    long long sum = 0;//初始化！！！
+    for (int i = 0; i < (1 << 30); i++)
+        //1<<30为1左移三十位，相当于得到三十个数，大小为2^30(每个数出现0，1后进位，30个数)
+        //因为计算机只有0，1，进制就相当于枚举，从000....1开始一直向三十位，可以穷举所有情况
+        //从0开始代表所有都关闭时
+    {
+        bool flag = true;//bool判断真假
+        //没有ture,只有true
+        for (int j = 1; j < 30; j++)
+            if (get(i, j) && get(i, j - 1))
+            {
+                flag = false;
+                break;
+            }
+        sum += flag;//假值为0，加上等于没加，只有真值加了才有用，省去if判断
+        //只有位置1，2/2，3/3，4...一直比到结尾，才能判断合法才能算一种情况
+       
+    }
+
+    cout << sum;
+    //结果为2178309
+    //暴力算法，填空结果正确就行了，程序运行慢就让它慢慢在编译器里跑，最后输出结果就行了
+    return 0;
+}
+//法二
+#include <iostream>
+using namespace std;
+int main()
+{
+  //递推
+    int dp[50][2];
+    //前面为数字位数，后面表示0或者1
+
+    dp[1][0] = 1;
+    dp[1][1] = 1;
+    //初始赋值，表示为1种情况
+
+        for (int i = 2; i <= 30; i++)
+        {
+            dp[i][0] = dp[i - 1][0] + dp[i - 1][1];
+            dp[i][1] = dp[i - 1][0];
+    }//从第二个数位开始，讨论两种情况，为0时后面的第一个数位0或1都可以
+    //为1时只能为0，数组反复赋值每次都会将前面所有的数位结果叠加，所以最终
+    //输出最后的数组即可.
+    
+        cout << dp[30][0] + dp[30][1] << endl;
+  return 0;
+}
+
+//四平方和
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+  int n;
+  scanf("%d",&n);
+  for(int i=0;i*i<=n;i++) 
+  for(int j=i;i*i+j*j<=n;j++)
+  for(int k=j;i*i+j*j+k*k<=n;k++)
+  for(int l=k;i*i+j*j+k*k+l*l<=n;l++)//条件要写==，本身也是考虑在内的
+  if(i*i+j*j+k*k+l*l==n)
+  {
+     printf("%d %d %d %d",i,j,k,l);
+     return 0;
+
+  }
+
+  //程序不是提前预设时间复杂度的，而是实打实的根据结果得出的
+//优化循环的条件,将循环次数降低，因为如果每次都遍历到最大，很可能比如
+//i*i+j*j+k*k+l*l早已大过n了还在那里傻傻的遍历，等到这层循环结束.而如果控制每次循环一旦比n大
+//我就退出循环就规避了无效遍历。
+//而前面每次都少一个意思就是判断只有前面的数之和没有超过n我才需要进入下一个循环，
+//如果超过了就需要更新前面的新的数字，也同样是避免了大量的无效循环，
+//因此循环条件的设置也是能大大优化for的时间复杂度的.
+ 
+  return 0;
+} 
+//优化循环条件，优化遍历次数
+
+#include <iostream>//最长递增
+using namespace std;
+int main()
+{
+  int n;
+  int a[10000];
+  int cnt=0,m=0;
+  cin>>n;
+  for(int i=0;i<n;i++)
+  {
+     cin>>a[i];
+  }
+
+  for(int i=1;i<n;i++)
+  {
+       if(a[i-1]<a[i])
+       {
+          cnt++;
+       }
+       else
+       {
+         m=m>cnt?m:cnt;
+         cnt=1;
+       }
+
+  }
+  //这里只需要判断一次是因为只有从最开始遍历的时候才是最长的，出现了不是递增的情况
+  //就表示结束了就截断，开始下一个序列的遍历。
+  cout<<m;
+  
+  return 0;
+}
+
+#include <stdio.h>//连号区间数
+#include <stdlib.h>
+long long INF=1e9;
+ 
+int max(int a,int b)
+{
+  return a>b?a:b;
+}
+int min(int a,int b)
+{
+  return a<b?a:b;
+}//c++可以直接不写比较大小函数，有现成的
+int main(int argc, char *argv[])
+{
+   int n;
+   int p[1000000];
+   long long res=0;
+   scanf("%d",&n);
+   for(int i=0;i<n;i++)
+   {
+     scanf("%d",&p[i]);
+   }
+ 
+   for(int i=0;i<n;i++)
+   {
+      int maxv=-INF,minv=INF;
+     for(int j=i;j<n;j++)
+     {
+      //  int max=-INF,min=INF;err
+      //注意摆放位置，是每次左边界的一开始给max，min附上第一个数
+      //   min=(min,p[j]);
+      // max=(max,p[j]);函数都不用写了是吧？
+      //为了避免和函数混淆，取名字特意改一下
+ 
+       minv=min(minv,p[j]);
+      maxv=max(maxv,p[j]);//迭代
+      
+      //左边界没有变的时候，每次都保留这次的minv与maxv
+      //然后跟最新的数字比较，有更好的就更新，没更好的就保留
+      //避免重复遍历.
+ 
+       if(maxv-minv==j-i)
+       {
+         res++;
+       }
+     }
+   }
+ 
+   printf("%lld",res);
+  return 0;
+}
+//不能给p排序，因为题目说的是排序后可以得到，而不是让你排序
+//你排了序选定的数字位置都不一样了，是选定后排，而不是先排后选定
+//所以不需要给输入的数字排序
+
+//k的倍数==前缀和的相同余数之差的总共情况+前缀和本身的情况.
+
+//思路:前缀和+余数相等，前缀余数相等时，相减前缀就能得到有效的k倍区间
+//(因为他们余数相等，相减的时候恰好将他们的余数消去可以把前缀比作
+//nk+mod,mod是/k后留下的余数，nk1+mod-(nk2+mod),相减就只留下k。
+#include <iostream>
+using namespace std;
+int main()
+{
+  int n,k,a;
+  cin>>n>>k;
+  long long sum=0,ans=0;
+  //当前前缀和      总共情况
+  int mod[100000];//统计余数相同时的次数
+
+mod[0]=1;//初始化余数为0时余数记为1是因为余数为0时
+//自己本身这个区间也算k的倍数，所以要多1，本身这种情况只有1次
+//所以只加1,而后与其他余数相同，余数==0时前缀和相减也是一种情况.
+for(int i=1;i<n;i++)
+{
+  mod[i]=0;
+}//自身情况不算所以初始值为0
+  for(int i=0;i<n;i++)
+  {
+    cin>>a;
+    sum+=a;//每次都扩大1次前缀
+    ans+=mod[sum%k];
+    //对前缀取余，加上前面相同余数的情况，
+    //相当于直接得到相减的步骤，
+    //即当前的前缀减去前面所有相同余数前缀的结果
+    //这里都是前缀相减的结果，不包含自身前缀本身
+    //只有mod[0]时才是自身情况也算上
+    mod[sum%k]++;
+    //加上这一次的前缀的余数情况.
+
+  }
+  cout<<ans;//记得输出结果，调试如果只是答案错误但是什么输出都没有就表示你没打印结果！
+  //一定要注意，不然白做！
+  return 0;
+}
+//取余+相减==k的倍数，所以倍数题目一般都用取余
+//如果不清楚自己的结论是否正确，可以自己写测试数据检测一下或者
+//列举简单的数字看看结果是否相符，来判断是否程序正确或健全.
+
+
+#include<bits/stdc++.h>//递增三元组
+
+using namespace std;
+int main()
+{
+  int a[100000],b[100000],c[100000];
+  int n;
+  long long ans=0;
+  cin>>n;
+  for(int i=0;i<n;i++)
+  cin>>a[i];
+  for(int i=0;i<n;i++)
+  cin>>b[i];
+  for(int i=0;i<n;i++)
+  cin>>c[i];
+
+  sort(a,a+n);//直接写出首尾就ok了
+  sort(c,c+n);
+
+  int left,right;
+for(int i=0;i<n;i++)//枚举b
+{
+  //找出比b小的最大的a,比b大的最小的c
+   left=0,right=n-1;
+   while(left<right)
+   {
+     int mid=(left+right+1)/2;
+     if(b[i]<=a[mid])//当前a的值大于等于b，我也不要了
+     //a太大，我就缩小
+     //注意，这个小于等于要放在一起因为都归为mid不可取的一边
+     //如果只写<，那么等于在下面就无法把等于这种情况去除.
+     right=mid-1;
+     else
+     left=mid;//当前mid满足条件可取
+
+   }
+
+  int x=right;
+ left=0,right=n-1;
+while(left<right)
+{
+  int mid=(left+right)/2;
+  if(b[i]>=c[mid])//条件不满足题意，mid值不要
+  left=mid+1;
+  else
+  right=mid;//符合,mid可取
+
+}
+int y=right;
+
+if(a[x]<b[i]&&b[i]<c[y])
+{
+      // ans+=(x+1)*(n-y);err
+       ans+=(long long)(x+1)*(n-y);
+      //两个相乘是因为排列组合
+      //定下1个b，每一种a都有n-y个c的情况.
+      //一个数据错了，这里相乘计算大数据会溢出
+      //所以要扩大数据类型！
+      //但是给x,y修改类型竟然也能过，我不知道为什么
+      //但逻辑来讲还是改这里的数据类型比较严谨
+}
+
+
+
+}
+
+cout<<ans;
+
+return 0;
+}
+
+#include <iostream>//积木
+using namespace std;
+int main()
+{
+    int n, m, x, h, hmax = 100000, sum = 0;
+    int num[100005];
+    long long ans = 0;
+    cin >> n >> m;
+
+    for (int i = 0; i < n * m; i++)
+    {
+        cin >> x;
+        if (x > hmax)
+            x = hmax;
+        if (x)
+        {
+            num[x]++;
+            sum++;
+        }
+    }
+    //水上升高度上限是题目输入的，不是题设最大，还是看题！
+
+    cin >> h;
+    for (int i = 1; i <= h; i++)
+    {
+        ans += sum;
+        cout << ans << endl;
+        sum -= num[i];
+    }
+
+    // cout<<ans;err
+    //没看题目，别无脑最后打印行不行，看题目要求！
+    return 0;
+}
+
+
+#include <bits/stdc++.h>//倍数问题
+using namespace std;
+int n,k; 
+int group[1010][3];//??
+//这个group不能放在for循环中,
+//要么放在主函数开头，要么放全局变量
+//你在for循环定义数组，就会反复因为循环刷新这个数组，
+//以后不要在循环中定义变量/数组，除非只是暂时使用的！
+//要记录数据就一定要放在全局或者主函数开头
+int main()
+{
+  
+ 
+  cin>>n>>k;
+  for(int i=0;i<n;i++)
+  {
+    int num;
+    cin>>num;
+    int re=num%k;
+    
+    if(num>group[re][0])
+    {
+      group[re][2]=group[re][1];
+      group[re][1]=group[re][0];
+      group[re][0]=num;
+    }
+    else if(num>group[re][1])
+    {
+      group[re][2]=group[re][1];
+      group[re][1]=num;
+    }
+    else
+    {
+      group[re][2]=max(group[re][2],num);
+    }
+ 
+  }
+ 
+ 
+int ans=0;
+  for(int x=0;x<=k;x++)
+  {
+    for(int y=x;y<=k;y++)
+ {
+   int z=(k+k-x-y)%k;
+   int v1=group[x][0];
+   int v2,v3;
+ 
+if(y==x)
+{
+  v2=group[x][1];
+ 
+  if(z==y)
+  {
+     v3=group[x][2];
+  }
+ 
+  else
+  v3=group[z][0];
+ 
+}
+else
+{
+  v2=group[y][0];
+  if(z==x)
+  {
+    v3=group[x][1];
+  }
+  else if(z==y)
+  {
+    v3=group[y][1];
+  }
+else
+{
+    v3=group[z][0];
+}
+ 
+  
+ 
+}
+ 
+if(v1+v2+v3>ans)
+ans=v1+v2+v3;
+   
+ }
+ 
+  }
+ 
+ 
+ cout<<ans<<endl;
+  return 0;
+}
+
+#include <iostream>//冰雹数，线性思维没啥好说的
+using namespace std;
+int main()
+{
+  long long n,m;
+  //不知道它上升的时候会不会溢出
+ cin>>n; 
+  m=n;//输入的最大数字是初始时的最大情况
+
+  for(int i=1;i<=n;i++)//不大于n的所有数字中的最高情况
+  {
+    long long j=i;
+    while(j!=1)
+{
+  if(j%2==0)
+  //&符号要括起来，避免计算机无法确认计算优先度
+  {
+    j/=2;
+  }
+  else
+  {
+    j=j*3+1;
+    //j>>=1也行,右移一位等于除以2
+  }
+   
+   if(j>m)
+   m=j;
+}
+
+
+  }
+cout<<m;
+  return 0;
+}
+
+#include <iostream>//成绩统计
+using namespace std;
+int main()
+{
+  int n,maxv=0,minv=200,sum=0,a;
+  cin>>n;
+  for(int i=0;i<n;i++)
+  {
+    cin>>a;
+    maxv=max(maxv,a);
+    minv=min(minv,a);
+    sum+=a;
+  }
+  float ans=1.00*sum/n;
+
+printf("%d\n%d\n%.2f\n",maxv,minv,ans);
+//注意上面的结果要*1.00表示保留，下面.2表示截取，都要写
+  
+  return 0;
+}
+ 
+ #include <bits/stdc++.h>//砍竹子
+ using namespace std;
+ typedef long long ll;
+ int main()
+ {
+   int n,m=0;
+   ll skr[50];
+   ll f[200010][50];
+   ll h,res=0;
+   cin>>n;
+   int i;
+   for(i=0;i<n;i++)
+   {
+     cin>>h;
+     int top=0;
+     while(h>1)//h==1不需要变魔法， 直接不参与统计
+     {
+        
+       skr[++top]=h;
+       //下标1对应初始长度是因为我们舍去了h==1的考虑
+       //照理应该是skr[topmax]=1,可是我们直接不要了
+       //但又要有正确的变魔法次数，所以数组下标统一后移
+       //同时也满足skr下标对应了top
+  
+      //为了保险起见，下标最好初始化不为负数，防止数组越界，一定不要赋值下标初始为-1
+         h=sqrtl(h/2+1);
+      }
+     // cout<<top<<endl;
+      //如果不确定结果是否正确可以自己先打印出数据看看核对是否程序无误
+      //不是最终结果，其中的一部分也是可行的
+     res+=top;
+     m=max(m,top);
+     //得出最大的使用魔法次数，用于接下来，比对满足使用了相同次数的魔法的竹子，
+     //省去了很多没必要比对的竹子，大大节省时间.
+  
+    for(int j=0,k=top;k;j++,k--)
+   //此时最终满足对应下标而且不会越界，直接插入即可
+    {
+      f[i][j]=skr[k];//正序插入到数组
+    }
+     
+  
+   }
+  
+     for(int j=0;j<m;j++)//使用魔法的次数先固定，先比对不同的竹子
+     //不需要等于m,m次数最大时竹子都砍完了，不会再变魔法了
+     //所以都是在变魔法之前判断竹子是否相等
+     for(int i=1;i<n;i++)
+     {
+       // if(f[i][j]==f[i-1][j])err
+       if(f[i][j]&&f[i][j]==f[i-1][j])//要保证j中有数据才能比较
+       //没有数据的比较会使得程序出错
+       res--;
+     }
+  
+ cout<<res<<endl;
+  
+  
+   return 0;
+ }
+ 
+ //数的分解
+ #include <iostream>
+ using namespace std;
+ int main()
+ {
+   int i,j,k;
+   long long countv=0;
+   for(i=1;i<=2019;i++)
+   {
+     int t =i;
+     while(t)
+     {
+       if(t%10==2||t%10==4)
+       break;
+ 
+       t/=10;
+     }
+ 
+     if(t==0)
+     {
+     for(j=i+1;j<=2019;j++)
+   {
+     t=j;
+     while(t)
+     {
+       if(t%10==2||t%10==4)
+       break;
+ 
+       t/=10;
+     }
+     if(t==0)
+     {
+       k=2019-i-j;
+       t=k;
+     while(t)
+     {
+       if(t%10==2||t%10==4)
+       break;
+ 
+       t/=10;
+     }
+ 
+     if(t==0)
+     {
+       if(i < j && j < k)//这个条件很重要！
+       //我们定义这三个各不相同的正整数为 i, j, k 并且必须满足 i < j < k 。这样就不存在交换任意俩个导致计算重复了。
+       //因为开始时k最大，i最小，
+       //所以实际上只需要一直保持着i<j<k即可
+       //如果i比j大了，就相当于i和j换了位置是重复的情况
+       //,会出现交叉的方法
+       //k也同理，所以控制i,j,k只有一种情况的大小情况即可
+       countv++;
+     }
+ 
+     }
+ 
+   }
+     }
+   }
+   //虽然写完才发现可以用函数代替重复步骤，下次注意
+   //重复调用步骤用函数不要自己硬生生地复制粘贴，不简洁还容易错
+   
+   
+   cout<<countv;
+ 
+   return 0;
+ }
+ //优化
+ #include <stdio.h>
+ #include <stdlib.h>
+ int judge(int n)
+ {
+   while(n)
+   {
+     if(n % 10 == 2 || n % 10 == 4)
+     {
+       return 0;
+     }
+     n /= 10;
+   }
+   return 1;
+ }
+ int main(int argc, char *argv[])
+ {
+   int i, j, k;
+   int ans = 0;
+   for(i = 1; i <= 2019; i ++)
+   {
+     for(j = 1; j <= 2019; j ++)
+     {
+       k = 2019 - i - j;
+       if(judge(i) && judge(j) && judge(k))
+       {
+         if(i < j && j < k)
+         {
+           ans ++;
+         }
+       }
+     }
+   }
+   printf("%d\n", ans);
+   return 0;
+ }
+ 
+ #include <bits/stdc++.h>//大胖子走迷宫
+ using namespace std;
+ int dp[310][310];//插入地图
+ int vis[310][310];//标记走过的位置
+  
+ //地图和走过的位置还是要区分开最佳，不然比如胖子
+ //识别是否有障碍的时候，走过的标记和障碍会冲突
+  
+ //广搜核心:每一次都遍历了所有的情况，因此可以遍历所有的结果
+ //配合队列，队列的插入和删除保证为最佳情况（最短时间)
+ //以及队列能够使用出队来删去不满足条件的情况，减少无效遍历
+ //使用入队来实现继承满足条件的情况,继续遍历
+  
+ int n,k,stage;
+ int dir[4][2]={{1,0},{-1,0},{0,1},{0,-1}};//四个方向
+  
+ struct node
+ {
+   int x;//行方向
+   int y;//列
+   int step;
+ };
+ //使用的时候自己命名一个node 的变量使用即可
+ queue<node>q;
+  
+ int check(int x,int y)
+ {
+   for(int i=x-stage;i<=x+stage;i++)
+   for(int j=y-stage;j<=y+stage;j++)//又给我忘记等号！
+   //写循环时一定要判断等号要不要！
+   {
+       if(dp[i][j]==1)
+       return 0;
+   }
+  
+  return 1;
+ }
+ //判断每个前进方向的那一排是否有障碍这么讨论太麻烦
+ //换成自身周围是否有障碍更简单
+ //周围没障碍我就只管往四方走。轮到下次判断
+ //自身周围是否有障碍来检测这种情况的合法性
+ //有时候思维不要过于直接，一种思路过于复杂可以试试
+ //另一种方式思考
+ void bfs()
+ {
+   vis[3][3]=1;//表示走过
+   node now,next;//分现在和下一步的情况
+  
+   //注意next结点可以任意修改，但是now结点不能动,动了就全错
+  
+   now.x=now.y=3;//不要忘记初始化结点！
+  now.step=0;
+  //开局一定要注意插入第一个元素，
+ //不然循环进不去!
+ q.push(now);
+  
+   while(!q.empty())
+   {
+    
+     now=q.front();
+     q.pop();
+     if(now.x==n-2&&now.y==n-2)//遍历结尾
+     {
+       cout<<now.step<<endl;
+       // return 0;
+       //void 函数不要return 0;
+       return;
+     }
+    
+    if(now.step<k)//用选择次数代替时间,用step(每次的选择走哪时间也是增加1次，所以直接用)
+      stage=2;//表示还是大胖子
+     else if(now.step>=k&&now.step<2*k)
+       stage=1;
+         else
+       stage=0;
+  
+  
+       if(stage>0)//原地踏步，stage=0就不可能原地踏步
+       //原地踏步的选择为下一步，不要投机取巧想着改一个step
+  
+       //你的一个地方的错误就会导致全盘错误，不要顾此失彼
+       //因小失大！
+       {
+         // now.step=now.step+1;err
+         //不能这么写，你这么写就改变了现在now的长度,
+         //影响了后面的step的正确输出
+        // 所以说还是分类最好.下一步归下一步，思路清晰不偷懒
+          next.step=now.step+1; 
+           next.x=now.x;
+           next.y=now.y;
+         q.push(next);
+       
+         
+         
+       }
+       
+       for(int i=0;i<4;i++)
+       {
+         // next.x=now.x+dir[0][i];
+         // next.y=now.y+dir[1][i];
+          next.x=now.x+dir[i][0];
+         next.y=now.y+dir[i][1];//四个方向讨论
+         //列放了两个元素，分别四个方向
+         //方向应该放在行，元素放在列，
+         //其中一个元素为0是为了区分是移动y还是移动x
+         //这么写很简洁，就一个循环都能实现x与y的移动
+         //原理是动x的时候y不动即y+0;
+         //动y不动x,x+0;
+         //同时注意统一x,y方向(x一个下标,y一个)
+         if(!check(next.x,next.y)||vis[next.x][next.y]||next.x-stage<1||next.y-stage<1||next.x+stage>n||next.y+stage>n)
+         //    周围是否有障碍         是否走过                            是否已经超出迷宫
+          continue;
+         //设置边界,排除非法情况
+       //  next.step++;不要这么写，会重复增加
+         next.step=now.step+1;//跟前面一样每次拿now结点就不会出错
+         //增加移动距离
+         
+         vis[next.x][next.y]=1;//别忘了标记走过！
+         q.push(next);
+         
+  
+        
+       }
+  
+     
+    
+   
+  
+    
+     
+   }
+ }
+   
+ int main()
+ {
+  
+   cin>>n>>k;
+  char c;
+ for(int i=1;i<=n;i++)
+ for(int j=1;j<=n;j++)
+ {
+   cin>>c;//输入每次的符号
+   if(c=='+')
+   dp[i][j]=0;
+   else
+   dp[i][j]=1;//1表示有障碍
+   //将字符换成1，0，方便快捷
+ }
+  
+ bfs();
+  
+   return 0;
+ }
+  
+  
+  
