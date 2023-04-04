@@ -1,0 +1,6 @@
+﻿  源.c
+D:\编程学习\循环链表\源.c(46,11): warning C4047: “return”:“int *”与“int”的间接级别不同
+D:\编程学习\循环链表\源.c(109,13): warning C4047: “return”:“int *”与“int”的间接级别不同
+D:\编程学习\循环链表\源.c(115,12): warning C4047: “return”:“int *”与“int”的间接级别不同
+D:\编程学习\循环链表\源.c(136,11): warning C4047: “return”:“int *”与“int”的间接级别不同
+  循环链表.vcxproj -> D:\编程学习\循环链表\Debug\循环链表.exe
