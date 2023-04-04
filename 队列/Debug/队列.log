@@ -1,0 +1,4 @@
+﻿  源.c
+D:\编程学习\队列\源.c(45,28): warning C4047: “return”:“int *”与“int”的间接级别不同
+D:\编程学习\队列\源.c(52,16): warning C4133: “函数”: 从“node *”到“queue *”的类型不兼容
+  队列.vcxproj -> D:\编程学习\队列\Debug\队列.exe
