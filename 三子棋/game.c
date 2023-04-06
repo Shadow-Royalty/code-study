@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNING
+#define _CRT_SECURE_NO_WARNINGS
 #include"game.h"
 void Initboard(char board[Row][Col], int row, int col)//字符类型不要漏,而且字符格式要写好！
 {
