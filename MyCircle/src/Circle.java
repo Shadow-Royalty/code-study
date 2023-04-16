@@ -1,5 +1,4 @@
 
-
 public class Circle {
 
 	public double getArea(double r) {
@@ -10,7 +9,7 @@ public class Circle {
 	}
 
 	public void drawCircle(int x, int y, double r) {
-		System.out.println("�뾶Ϊ" + r + "��Բ");
+		System.out.println("°ëžśÎŞ" + r + "ľÄÔ˛");
 
 	}
 
