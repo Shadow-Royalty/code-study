@@ -1,4 +1,3 @@
-
 //整型分割法
 #include<iostream>
 using namespace std;
