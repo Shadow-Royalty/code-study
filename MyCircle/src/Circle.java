@@ -1,4 +1,3 @@
-
 public class Circle {
 
 	public double getArea(double r) {
