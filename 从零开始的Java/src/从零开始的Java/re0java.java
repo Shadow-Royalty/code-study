@@ -1,4 +1,5 @@
-package 从零开始的Java;
+
+package 麓脫脕茫驴陋脢录碌脛Java;
 
 public class re0java {
 
