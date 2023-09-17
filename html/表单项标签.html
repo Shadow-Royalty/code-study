@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML-表单项标签</title>
+</head>
+<body>
+   <form action="" method="post">
+   姓名:<input type="text" name="name"><br><br>
+    密码:<input type="password" name="password"><br><br>
+    性别:<label><input type="radio" name="gender" value="1">男</label>
+    <!-- 有label才能被选中 -->
+        <label><input type="radio" name="gender" value="2">女</label><br><br>
+         <!-- 记得要填写值表示选择哪一个！ -->
+         <!-- 记得name一定要是一样的，不然不是同一组的就可以一起选就不是单选项了！ -->
+爱好:<label><input type="checkbox" name="hobby" value="java">java</label>
+                                    <!-- 这里输入的java是为了用户界面体验 -->
+<!-- 后面的value代表的是提交的值，也就是上传上去系统导入的值！ -->
+<label><input type="checkbox" name="hobby" value="game">game</label>
+<label><input type="checkbox" name="hobby" value="sing">sing</label><br><br>
+<!-- 不是选项就不需要再贴标签了！ -->
+图像:<input type="file" name="image"><br><br>
+生日:<input type="date" name="birthday"><br><br>
+时间:<input type="time" name="time"><br><br>
+日期时间:<input type="datetime-local" name="datetime"><br><br>
+邮箱:<input type="email" name="email"><br><br>
+年龄:<input type="number" name="age"><br><br>
+
+<!-- 有选项的话直接改成select -->
+<!-- 选项格式为<option value=""></option> -->
+学历:<select name="degree">
+<option value="">——请选择——</option>
+<option value="1">大专</option>
+<option value="2">本科</option>
+<option value="3">硕士</option>
+<option value="4">博士</option>
+</select><br><br>
+<!-- 大段文字描述用<textarea name="" id="" cols="30" rows="10"></textarea> -->
+描述:<textarea name="description" cols="30" rows="10"></textarea><br><br>
+
+<input type="button" value="按钮">
+<input type="reset" value="重置">
+<input type="submit" value="提交">
+
+   </form>
+</body>
+</html>
