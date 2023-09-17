@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+    <script src="./JS/axios.js"></script>
+    <script src="./JS/vue.js"></script>
+    <!-- 别忘了引用 -->
+</head>
+<body>
+    <table border="l" cellspacing="0" width="60%">
+        <tr>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>图像</th>
+        <th>性别</th>
+        <th>职位</th>
+        <th>入职日期</th>
+        <th>最后操作时间</th>
+        </tr>
+   
+        <tr align="center" v-for="(emp,index) in emps">
+            
+            <td>{{index+1}}</td>
+            <!-- 序号，索引即Index -->
+            <td>{{emp.name}}</td>
+            
+        <td>
+        <imq :src="C:\Users\爱莉希雅（Elysia)\Pictures"  width="70px" height="50px">
+        </td>
+        <td>
+        <span v-if="emp.gender==1" >男</span>
+         <span v-else-if="emp.gender==2" >女</span>
+       
+        <!-- span标签中不用写{{}} -->
+</td>
+<td>{{emp.job}}</td>
+        
+       
+        <td>{{emp.entrydate}}</td>
+       
+        <td>{{emp.updatetime}}</td>
+        </tr>
+    
+        </table>
+  
+        </div>
+</body>
+<script>
+new Vue({
+    el:"#app",
+    //需要""
+    data:{
+           emps:[]
+           //接收到数据后呈现出
+           //要加:
+    },
+    mounted () {
+      
+       axios.get("http://yapi.smart-xwork.cn/mock/169327/emp/list").then(result=>{
+            this.emps=  result.data.datas;
+           //数据存放的位置
+            //前一个代表指向整个网站的数据，后一个表示要选取的数据，
+            // 如其中datas为数组。
+        })
+    }
+});
+//记得最后有分号，得了，可加可不加
+</script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+    <script src="./JS/axios.min.js"></script>
+</head>
+<body>
+    <input type="button" value="获取数据GET" onclick="get()">
+    <input type="button" value="删除数据POST" onclick="post()">
+</body>
+<script>
+//       在你提供的代码示例中，第一个例子是使用axios.post()发送 POST 请求，
+//     用于删除数据。通常情况下，删除操作需要指定要删除的数据的标识符，
+//     以便服务器可以识别并执行相应的删除操作。
+//     因此，需要传递一个标识符参数（例如id）来指定要删除的数据。
+// 而第二个例子是使用axios.get()发送 GET 请求，用于获取数据列表。
+// 在这种情况下，可能不需要传递特定的标识符参数，而是直接从服务器上获取所有的数据列表。
+
+function get() {
+    // axios({
+    //     methods: "get",
+    //     //代表获取方式
+    //     url:"http://yapi.smart-xwork.cn/mock/169327/emp/list"
+    //     // 只是没有一个可以获取数据的服务器而已，报错也别管他,会写就行了
+    //      }).then(result=>{
+    //     console.log(result.data);
+    // })
+
+    axios.get("http://yapi.smart-xwork.cn/mock/169327/emp/list").then(result=>{
+        console.log(result.data);
+    })
+            
+   }
+
+function post() {
+    
+    // axios({
+    //     methods: "post",
+    //     //代表获取方式
+    //     url:"http://yapi.smart-xwork.cn/mock/169327/emp/deleteById"
+    //     data:"id=1"
+    //     // 只是没有一个可以获取数据的服务器而已，报错也别管他,会写就行了
+    //      }).then(result=>{
+    //     console.log(result.data);
+    // })
+
+    axios.post("http://yapi.smart-xwork.cn/mock/169327/emp/deleteById").then(result=>{
+        console.log(result.data);
+    })
+            
+}
+
+</script>
+</html>
